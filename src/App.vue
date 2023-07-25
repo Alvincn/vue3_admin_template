@@ -1,14 +1,12 @@
 <template>
-  <h1>app组件</h1>
+  <el-button icon="Plus">点击</el-button>
+  <el-icon><Minus /></el-icon>
+  <router-view></router-view>
 </template>
-<script setup lang="ts">
-for(let i=0;i<199;i++)
+<script setup lang="ts"></script>
 
-
-
-{
-  console.log("123");
+<style scoped lang="scss">
+h1 {
+  color: $color;
 }
-</script>
-
-<style scoped></style>
+</style>
