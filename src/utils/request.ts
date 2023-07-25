@@ -10,17 +10,20 @@ request.interceptors.request.use((config) => {
 })
 // 响应拦截器
 request.interceptors.response.use(
+  // 这是成功获取到了
   (response) => {
     const res = response.data
-
+    // 如果说不等于200，那么就说明有错误，输出这个错误信息，或者显示Error
     if (res.code !== 200) {
-      // ElMessage({
-      //   message: res.data.message || 'Error',
-      //   type: 'error',
-      //   duration: 5 * 1000,
-      // })
+      ElMessage({
+        message: res.data.message || 'Error',
+        type: 'error',
+        duration: 5 * 1000,
+      })
+      // 抛出错误
       return Promise.reject(new Error(res.data.message || 'Error'))
     } else {
+      // 否则请求成功，返回请求结果
       return res
     }
   },

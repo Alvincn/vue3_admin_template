@@ -3,16 +3,21 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form class="login_form">
+        <el-form
+          class="login_form"
+          :model="loginForm"
+          :rules="rules"
+          ref="loginFormEle"
+        >
           <h1>欢迎登录后台系统</h1>
-          <el-form-item>
+          <el-form-item prop="username">
             <el-input
               placeholder="请输入用户名"
               :prefix-icon="User"
               v-model="loginForm.username"
             ></el-input>
           </el-form-item>
-          <el-form-item>
+          <el-form-item prop="password">
             <el-input
               type="password"
               placeholder="请输入密码"
@@ -42,6 +47,8 @@ import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
+import { getTime } from '@/utils/time.ts'
+const loginFormEle = ref()
 let $router = useRouter()
 let btnLogin = ref(false)
 // 引入用户相关的小仓库
@@ -54,6 +61,8 @@ let loginForm = reactive({
 })
 // 登录按钮的回调
 const login = async () => {
+  // 保证全部的表单项校验通过再发请求
+  await loginFormEle.value.validate()
   // 点击登录之后的事情
   btnLogin.value = true
   // 通知仓库发请求
@@ -61,19 +70,47 @@ const login = async () => {
     await useStore.userLogin(loginForm)
     $router.push('/home')
     ElNotification({
-      title: '登录成功',
+      title: `Hi，${getTime()}好`,
       message: '欢迎回来',
       type: 'success',
     })
     btnLogin.value = false
   } catch (error) {
-    ElNotification({
-      title: '登录失败',
-      message: (error as Error).message,
-      type: 'error',
-    })
+    // ElNotification({
+    //   title: '登录失败',
+    //   message: (error as Error).message,
+    //   type: 'error',
+    // })
     btnLogin.value = false
   }
+}
+/** 表单验证需要校验的字段 */
+const rules = {
+  username: [
+    /**
+     * required:字段需要检验
+     * min：文本长度最小不能低于多少
+     * max：文本长度最多不能高于多少
+     * message：错误的提示信息
+     * trigger：触发验证表单的时机：change->文本输入时触发；blur->文本失去焦点时触发
+     */
+    {
+      required: true,
+      min: 4,
+      max: 10,
+      message: '用户名必须在6-10位之间',
+      trigger: 'change',
+    },
+  ],
+  password: [
+    {
+      required: true,
+      min: 6,
+      max: 10,
+      message: '密码长度在6-10位之间',
+      trigger: 'change',
+    },
+  ],
 }
 </script>
 
