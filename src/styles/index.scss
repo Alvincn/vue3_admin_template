@@ -1,3 +1,17 @@
 // 引入清除默认样式
 @import "./reset.scss";
-// 设置scss全局变量
+// 设置滚动条样式
+// 设置滚动条样式
+::-webkit-scrollbar {
+  width: 5px;
+}
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+  background-color: $base-menu-background;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  width: 5px;
+  background-color: white;
+  border-radius: 10px;
+}

@@ -1,7 +1,7 @@
 {
   "name": "vue3_admin_template",
   "private": true,
-  "version": "1.2.910",
+  "version": "1.2.11",
   "type": "module",
   "scripts": {
     "dev": "vite --open",

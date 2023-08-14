@@ -68,7 +68,7 @@ const login = async () => {
   // 通知仓库发请求
   try {
     await useStore.userLogin(loginForm)
-    $router.push('/home')
+    $router.push('/')
     ElNotification({
       title: `Hi，${getTime()}好`,
       message: '欢迎回来',

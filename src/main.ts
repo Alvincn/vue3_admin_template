@@ -7,14 +7,10 @@ import App from './App.vue'
 // 配置element-plus国际化
 // @ts-ignore
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 const app = createApp(App)
 app.use(ElementPlus, {
   locale: zhCn,
 })
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-  app.component(key, component)
-}
 // 引入自定义插件对象：注册整个项目全局组件
 import global from '@/components/index.ts'
 app.use(global)
